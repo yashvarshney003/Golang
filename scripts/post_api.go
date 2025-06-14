@@ -1,40 +1,38 @@
 package main 
-
 import (
 	"fmt"
 	"net/http"
-	"encoding/json"
 	"bytes"
-	"io/ioutil"
+	"encoding/json"
 	"strconv"
-	
+	"io/ioutil"
 )
-
 func main(){
-	url:= "http://localhost:8080/products/"
-	for i:=0;i<10;i++{
-	data := map[string]interface{}{
-            "Name":        "Products" + strconv.Itoa(i),
-            "Description": "This is a products one",
-            "Price":       300,
-            "Quantity":    4,
-        }
-	jsonData, _ := json.Marshal(data)
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
-	if err != nil {
-		fmt.Println("Request Error:", err)
-		return
-	}
-	req.Header.Set("Content-Type", "application/json")
-	client := &http.Client{}
-	resp,err := client.Do(req)
-	if err!=nil{
-		fmt.Println("Http err", err)
+	url := "http://localhost:8080/products/"
+	for i:=0; i<10;i++ {
+
+		data := map[string]interface{} {
+			"Name" : "Products"  + strconv.Itoa(i),
+			"Description": "This is practical second",
+			"Quantity": 5,
+			"Price": 4,
+		}
+		json_data, err := json.Marshal(data)
+		if err!=nil{
+			fmt.Println("Error in marshalling")
+		}
+		resp,err := http.Post(url,"application/json", bytes.NewBuffer(json_data))
+		if err != nil{
+			fmt.Println("error in sending post request", err)
+		}
+		defer resp.Body.Close()
+		body,err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			fmt.Println("❌ Error reading response body:", err)
+			continue
+		}
+		fmt.Printf("✅ Product %d added, Status: %s, Response: %s\n", i, resp.Status, string(body))
+		
 
 	}
-	defer resp.Body.Close()
-	body,_ :=  ioutil.ReadAll(resp.Body)
-	fmt.Println("Response:",string(body))
-} 
-
 }
