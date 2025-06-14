@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-type product struct {
+type Product struct {
 	ID          uint    `gorm:"primaryKey"`
 	Name        string  `gorm:"not null"`
 	Description string  `gorm:"type:text"`
@@ -10,6 +10,4 @@ type product struct {
 	Quantity    int     `gorm:"not null"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
-	ProductID   string `gorm: "type:text"`
-	VariantID   string `gorm: "type:text"`
 }
