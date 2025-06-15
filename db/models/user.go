@@ -8,4 +8,6 @@ type User struct {
 	Email     string `gorm:"unique; not null"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
+
+	Orders []Order `gorm:"foreignKey:UserID"`
 }

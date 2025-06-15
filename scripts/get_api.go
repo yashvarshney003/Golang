@@ -6,7 +6,7 @@ import (
 )
 func main(){
 	url := "http://localhost:8080/products/"
-	for i:=0; i<200;i++ {
+	for i:=0; i<400;i++ {
 		resp,err := http.Get(url)
 		if err != nil{
 			fmt.Println("error in sending get request", err)

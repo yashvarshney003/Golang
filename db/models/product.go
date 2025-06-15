@@ -10,4 +10,6 @@ type Product struct {
 	Quantity    int     `gorm:"not null"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
+
+	Orders []Order `gorm:"foreignKey:ProductID"`
 }
